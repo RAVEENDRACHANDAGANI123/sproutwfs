@@ -106,11 +106,14 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('Storage save error:', err);
       }
 
-      // 2. If access_key is set, forward to Web3Forms
-      const accessKey = document.getElementById('formAccessKey')?.value?.trim();
+      // 2. Forward to Web3Forms for direct email delivery
+      const accessKey = document.getElementById('formAccessKey')?.value?.trim() || '22f3c2df-e822-40c3-bc1c-982c0713f75e';
       if (accessKey) {
         try {
           const formData = new FormData(contactForm);
+          if (!formData.get('access_key')) {
+            formData.set('access_key', accessKey);
+          }
           await fetch('https://api.web3forms.com/submit', {
             method: 'POST',
             body: formData
