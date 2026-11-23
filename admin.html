@@ -43,6 +43,7 @@
           <button class="admin-tab active" data-panel="dashPanel">📈 Overview</button>
           <button class="admin-tab" data-panel="addPanel">➕ Add Jobs</button>
           <button class="admin-tab" data-panel="managePanel">📋 Manage Jobs</button>
+          <button class="admin-tab" data-panel="messagesPanel">📬 Inquiries <span id="dashMsgCountBadge" style="display:none; background: #EF4444; color: #fff; font-size: 0.72rem; padding: 2px 7px; border-radius: 12px; margin-left: 6px; font-weight: 700;">0</span></button>
         </div>
       </div>
 
@@ -76,6 +77,13 @@
             <div>
               <div class="dash-stat-num" id="dashRemote">0</div>
               <div class="dash-stat-label">Remote Roles</div>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon" style="background: #E0F2FE; color: #0284C7;">📬</div>
+            <div>
+              <div class="dash-stat-num" id="dashTotalMessages">0</div>
+              <div class="dash-stat-label">Inquiries</div>
             </div>
           </div>
         </div>
@@ -259,6 +267,39 @@ Apply: https://app.talentxo.com/s/012Od"></textarea>
                 </tr>
               </thead>
               <tbody id="jobsTableBody">
+                <!-- Populated by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- INQUIRIES / MESSAGES PANEL -->
+      <div class="admin-panel" id="messagesPanel">
+        <div class="manage-table-wrap">
+          <div class="manage-toolbar">
+            <div>
+              <h3 style="margin-bottom: 4px;">📬 Customer & Client Inquiries</h3>
+              <p style="color: var(--text-light); font-size: 0.85rem;">All messages submitted through the website contact form</p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="export-btn" onclick="exportMessagesCSV()">📥 Export CSV</button>
+              <button class="delete-btn" onclick="clearAllMessages()">🗑️ Clear All</button>
+            </div>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="manage-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Email & Phone</th>
+                  <th>Company / Service</th>
+                  <th>Message</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="messagesTableBody">
                 <!-- Populated by admin.js -->
               </tbody>
             </table>

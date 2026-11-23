@@ -67,10 +67,65 @@ document.addEventListener('DOMContentLoaded', () => {
   // Contact form handling
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      const btn = contactForm.querySelector('button[type="submit"]');
+      const origHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.innerHTML = 'Sending... ⏳';
+        btn.disabled = true;
+      }
+
+      const serviceSelect = document.getElementById('service');
+      const serviceName = serviceSelect && serviceSelect.selectedIndex >= 0 
+        ? serviceSelect.options[serviceSelect.selectedIndex].text 
+        : 'General Enquiry';
+
+      const entry = {
+        id: 'msg_' + Date.now(),
+        date: new Date().toLocaleString('en-IN', {
+          day: '2-digit', month: 'short', year: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        }),
+        firstName: document.getElementById('firstName')?.value.trim() || '',
+        lastName: document.getElementById('lastName')?.value.trim() || '',
+        email: document.getElementById('email')?.value.trim() || '',
+        phone: document.getElementById('phone')?.value.trim() || '',
+        company: document.getElementById('company')?.value.trim() || 'Individual',
+        service: serviceName,
+        message: document.getElementById('message')?.value.trim() || ''
+      };
+
+      // 1. Save locally for Admin Portal
+      try {
+        const stored = JSON.parse(localStorage.getItem('sprout_wfs_messages') || '[]');
+        stored.unshift(entry);
+        localStorage.setItem('sprout_wfs_messages', JSON.stringify(stored));
+      } catch (err) {
+        console.warn('Storage save error:', err);
+      }
+
+      // 2. If access_key is set, forward to Web3Forms
+      const accessKey = document.getElementById('formAccessKey')?.value?.trim();
+      if (accessKey) {
+        try {
+          const formData = new FormData(contactForm);
+          await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+          });
+        } catch (err) {
+          console.warn('Email gateway send error:', err);
+        }
+      }
+
       showToast('Message sent successfully! We\'ll get back to you soon.', 'success');
       contactForm.reset();
+      if (btn) {
+        btn.innerHTML = origHtml;
+        btn.disabled = false;
+      }
     });
   }
 });

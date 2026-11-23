@@ -1,5 +1,6 @@
 // ===== ADMIN DASHBOARD JS =====
 const ADMIN_STORAGE_KEY = 'sprout_wfs_jobs';
+const MESSAGES_STORAGE_KEY = 'sprout_wfs_messages';
 
 document.addEventListener('DOMContentLoaded', () => {
   setupTabs();
@@ -18,6 +19,7 @@ function setupTabs() {
       document.getElementById(tab.dataset.panel).classList.add('active');
       if (tab.dataset.panel === 'managePanel') loadManageTable();
       if (tab.dataset.panel === 'dashPanel') loadDashboard();
+      if (tab.dataset.panel === 'messagesPanel') loadMessagesTable();
     });
   });
 }
@@ -42,6 +44,20 @@ function loadDashboard() {
 
   const remoteCount = jobs.filter(j => j.workMode && j.workMode.toLowerCase().includes('remote')).length;
   if (remoteEl) remoteEl.textContent = remoteCount;
+
+  // Messages count & badge
+  const messages = JSON.parse(localStorage.getItem(MESSAGES_STORAGE_KEY) || '[]');
+  const msgCountEl = document.getElementById('dashTotalMessages');
+  if (msgCountEl) msgCountEl.textContent = messages.length;
+  const badge = document.getElementById('dashMsgCountBadge');
+  if (badge) {
+    if (messages.length > 0) {
+      badge.textContent = messages.length;
+      badge.style.display = 'inline-block';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
 
   // Domain bar chart
   renderDomainChart(jobs);
@@ -427,6 +443,119 @@ function importJobs() {
     reader.readAsText(file);
   };
   input.click();
+}
+
+// ===== INQUIRIES & MESSAGES =====
+function loadMessagesTable() {
+  const tbody = document.getElementById('messagesTableBody');
+  if (!tbody) return;
+  const messages = JSON.parse(localStorage.getItem(MESSAGES_STORAGE_KEY) || '[]');
+  
+  if (messages.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align: center; color: var(--text-light); padding: 48px 24px;">
+          <div style="font-size: 2rem; margin-bottom: 8px;">📭</div>
+          <strong>No inquiries yet.</strong>
+          <p style="font-size: 0.85rem; margin-top: 4px;">Customer inquiries submitted from the website Contact page will appear here.</p>
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = messages.map((m, idx) => `
+    <tr>
+      <td style="white-space: nowrap; font-size: 0.82rem; color: var(--text-light);">
+        ${escapeHtml(m.date || 'Recent')}
+      </td>
+      <td>
+        <strong style="color: var(--text);">${escapeHtml((m.firstName || '') + ' ' + (m.lastName || ''))}</strong>
+      </td>
+      <td>
+        <a href="mailto:${escapeHtml(m.email)}?subject=Re:%20Your%20Inquiry%20with%20Sprout%20Workforce%20Solutions" style="color: var(--primary); font-weight: 600;">
+          ${escapeHtml(m.email)}
+        </a>
+        ${m.phone ? `<div style="font-size: 0.8rem; color: var(--text-light); margin-top: 2px;">📞 ${escapeHtml(m.phone)}</div>` : ''}
+      </td>
+      <td>
+        <strong>${escapeHtml(m.company || '—')}</strong>
+        <div style="font-size: 0.8rem; color: var(--text-light); margin-top: 2px;">
+          🏷️ ${escapeHtml(m.service || 'General Enquiry')}
+        </div>
+      </td>
+      <td style="max-width: 320px; font-size: 0.88rem; line-height: 1.5; word-break: break-word;">
+        ${escapeHtml(m.message || '')}
+      </td>
+      <td style="white-space: nowrap;">
+        <a class="job-apply-btn" href="mailto:${escapeHtml(m.email)}?subject=Re:%20Your%20Inquiry%20with%20Sprout%20Workforce%20Solutions" style="padding: 6px 12px; font-size: 0.75rem; text-decoration: none; display: inline-flex; margin-right: 6px;">
+          ✉️ Reply
+        </a>
+        <button class="delete-btn" onclick="deleteMessage(${idx})" title="Delete message">🗑️</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function deleteMessage(index) {
+  if (!confirm('Are you sure you want to delete this inquiry?')) return;
+  const messages = JSON.parse(localStorage.getItem(MESSAGES_STORAGE_KEY) || '[]');
+  messages.splice(index, 1);
+  localStorage.setItem(MESSAGES_STORAGE_KEY, JSON.stringify(messages));
+  loadMessagesTable();
+  loadDashboard();
+  showToast('Inquiry deleted.', 'info');
+}
+
+function clearAllMessages() {
+  const messages = JSON.parse(localStorage.getItem(MESSAGES_STORAGE_KEY) || '[]');
+  if (messages.length === 0) {
+    showToast('No inquiries to clear.', 'info');
+    return;
+  }
+  if (!confirm('Are you sure you want to permanently clear ALL inquiries?')) return;
+  localStorage.setItem(MESSAGES_STORAGE_KEY, JSON.stringify([]));
+  loadMessagesTable();
+  loadDashboard();
+  showToast('All inquiries cleared.', 'info');
+}
+
+function exportMessagesCSV() {
+  const messages = JSON.parse(localStorage.getItem(MESSAGES_STORAGE_KEY) || '[]');
+  if (messages.length === 0) {
+    showToast('No inquiries to export.', 'info');
+    return;
+  }
+  const headers = ['Date', 'First Name', 'Last Name', 'Email', 'Phone', 'Company', 'Service', 'Message'];
+  const rows = messages.map(m => [
+    `"${(m.date || '').replace(/"/g, '""')}"`,
+    `"${(m.firstName || '').replace(/"/g, '""')}"`,
+    `"${(m.lastName || '').replace(/"/g, '""')}"`,
+    `"${(m.email || '').replace(/"/g, '""')}"`,
+    `"${(m.phone || '').replace(/"/g, '""')}"`,
+    `"${(m.company || '').replace(/"/g, '""')}"`,
+    `"${(m.service || '').replace(/"/g, '""')}"`,
+    `"${(m.message || '').replace(/"/g, '""')}"`
+  ]);
+  const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `sprout_inquiries_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Inquiries exported successfully as CSV.', 'success');
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 // ===== TOAST =====
