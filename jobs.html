@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Board | Sprout Workforce Solutions</title>
+  <meta name="description" content="Browse open positions across Software, Sales, Marketing, and more. Filter by domain, location, and experience." />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Sprout Workforce Solutions home">
+        <img class="brand-logo" src="assets/logo.png" alt="Sprout Workforce Solutions" />
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a class="active" href="jobs.html">Jobs</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a class="nav-cta" href="contact.html">Let's Talk <span>→</span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+      <div class="container">
+        <div class="eyebrow light"><span></span> Explore Opportunities</div>
+        <h1>Open Positions</h1>
+        <p>Find your next career move. Filter by domain, location, experience, and work mode.</p>
+      </div>
+    </section>
+
+    <!-- JOB BOARD -->
+    <section class="container">
+      <div class="board-layout">
+        <!-- FILTER SIDEBAR -->
+        <aside class="filter-sidebar" id="filterSidebar">
+          <!-- Populated by jobs.js -->
+        </aside>
+
+        <!-- JOBS MAIN AREA -->
+        <div>
+          <!-- SEARCH -->
+          <div class="search-bar">
+            <div class="search-input-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="jobSearch" class="search-input" placeholder="Search by title, skill, company type..." />
+            </div>
+          </div>
+
+          <!-- ACTIVE FILTERS -->
+          <div id="activeFilters" class="active-filters"></div>
+
+          <!-- RESULTS INFO -->
+          <div class="results-info">
+            <div class="results-count" id="resultsCount">Loading...</div>
+          </div>
+
+          <!-- JOBS GRID -->
+          <div class="jobs-grid" id="jobsGrid">
+            <!-- Populated by jobs.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container cta-inner">
+        <div class="eyebrow light"><span></span> Can't find the right role?</div>
+        <h2>Send us your resume and<br>we'll match you to the right opportunity.</h2>
+        <p>We're always looking for great talent across all domains.</p>
+        <a class="button white" href="contact.html">Get in Touch <span>→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="index.html">
+          <img class="brand-logo footer-logo" src="assets/logo-white.png" alt="Sprout Workforce Solutions" />
+        </a>
+        <p>People-focused HR solutions for ambitious organisations across India.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="jobs.html">Job Board</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="services.html">Talent Acquisition</a>
+        <a href="services.html">HR Consulting</a>
+        <a href="services.html">Payroll & Compliance</a>
+        <a href="services.html">Training & Development</a>
+      </div>
+      <div>
+        <h4>Get in Touch</h4>
+        <a href="mailto:hr@sproutwfs.com">hr@sproutwfs.com</a>
+        <p>Pan India | Remote</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Sprout Workforce Solutions. All rights reserved.</span>
+      <span><a href="#">Privacy</a><a href="#">Terms</a></span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/jobs.js"></script>
+</body>
+</html>

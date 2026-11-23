@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | Sprout Workforce Solutions</title>
+  <meta name="description" content="Get in touch with Sprout Workforce Solutions for HR consulting, recruitment, and workforce solutions." />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Sprout Workforce Solutions home">
+        <img class="brand-logo" src="assets/logo.png" alt="Sprout Workforce Solutions" />
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="jobs.html">Jobs</a>
+        <a class="active" href="contact.html">Contact</a>
+      </nav>
+      <a class="nav-cta" href="contact.html">Let's Talk <span>→</span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+      <div class="container">
+        <div class="eyebrow light"><span></span> Get in Touch</div>
+        <h1>Contact Us</h1>
+        <p>Have a question or need HR support? We'd love to hear from you.</p>
+      </div>
+    </section>
+
+    <!-- CONTACT CONTENT -->
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- CONTACT INFO -->
+          <div class="contact-info reveal">
+            <div>
+              <h2 style="margin-bottom: 12px;">Let's start a <em>conversation.</em></h2>
+              <p style="color: var(--text-light); margin-bottom: 32px;">Whether you're looking to hire, need HR consulting, or want to explore workforce solutions — we're here to help.</p>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon" style="background: #EBF5FB; color: var(--primary);">📧</div>
+              <div>
+                <h4>Email Us</h4>
+                <p>For general enquiries and partnerships</p>
+                <a href="mailto:hr@sproutwfs.com">hr@sproutwfs.com</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon" style="background: #E8F5E9; color: var(--secondary);">📍</div>
+              <div>
+                <h4>Our Reach</h4>
+                <p>Serving organisations across</p>
+                <strong style="color: var(--text);">Pan India | Remote</strong>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon" style="background: #FFF3E0; color: #E65100;">⏰</div>
+              <div>
+                <h4>Business Hours</h4>
+                <p>Monday – Friday</p>
+                <strong style="color: var(--text);">9:00 AM – 6:30 PM IST</strong>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon" style="background: #F3E5F5; color: #7B1FA2;">🌐</div>
+              <div>
+                <h4>Follow Us</h4>
+                <p>Stay updated on new opportunities</p>
+                <a href="https://sproutwfs.com" target="_blank">sproutwfs.com</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- CONTACT FORM -->
+          <div class="contact-form reveal">
+            <h3>Send Us a Message</h3>
+            <form id="contactForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First Name *</label>
+                  <input type="text" id="firstName" name="firstName" required placeholder="Your first name" />
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name *</label>
+                  <input type="text" id="lastName" name="lastName" required placeholder="Your last name" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email Address *</label>
+                  <input type="email" id="email" name="email" required placeholder="you@company.com" />
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="company">Company / Organisation</label>
+                <input type="text" id="company" name="company" placeholder="Your company name" />
+              </div>
+              <div class="form-group">
+                <label for="service">What do you need help with?</label>
+                <select id="service" name="service">
+                  <option value="">— Select a service —</option>
+                  <option value="talent">Talent Acquisition</option>
+                  <option value="consulting">HR Consulting</option>
+                  <option value="payroll">Payroll & Compliance</option>
+                  <option value="training">Training & Development</option>
+                  <option value="other">Other / General Enquiry</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Your Message *</label>
+                <textarea id="message" name="message" required placeholder="Tell us about your requirement..."></textarea>
+              </div>
+              <button type="submit" class="button primary" style="width: 100%; justify-content: center;">
+                Send Message <span>→</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container cta-inner reveal">
+        <div class="eyebrow light"><span></span> Looking for a Job?</div>
+        <h2>Explore our open positions<br>and find your next role.</h2>
+        <p>We're always looking for great talent to match with exciting opportunities.</p>
+        <a class="button white" href="jobs.html">Browse Jobs <span>→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="index.html">
+          <img class="brand-logo footer-logo" src="assets/logo-white.png" alt="Sprout Workforce Solutions" />
+        </a>
+        <p>People-focused HR solutions for ambitious organisations across India.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="jobs.html">Job Board</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="services.html">Talent Acquisition</a>
+        <a href="services.html">HR Consulting</a>
+        <a href="services.html">Payroll & Compliance</a>
+        <a href="services.html">Training & Development</a>
+      </div>
+      <div>
+        <h4>Get in Touch</h4>
+        <a href="mailto:hr@sproutwfs.com">hr@sproutwfs.com</a>
+        <p>Pan India | Remote</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Sprout Workforce Solutions. All rights reserved.</span>
+      <span><a href="#">Privacy</a><a href="#">Terms</a></span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

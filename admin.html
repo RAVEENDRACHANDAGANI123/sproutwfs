@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | Sprout Workforce Solutions</title>
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Sprout Workforce Solutions home">
+        <img class="brand-logo" src="assets/logo.png" alt="Sprout Workforce Solutions" />
+      </a>
+      <nav class="nav" id="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a class="nav-cta" href="contact.html">Let's Talk <span>→</span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="container admin-layout">
+      <!-- ADMIN HEADER -->
+      <div class="admin-header">
+        <div>
+          <h1>📊 Admin Dashboard</h1>
+          <p style="color: var(--text-light); margin-top: 4px;">Manage jobs, view analytics, and control your job board</p>
+        </div>
+        <div class="admin-tabs">
+          <button class="admin-tab active" data-panel="dashPanel">📈 Overview</button>
+          <button class="admin-tab" data-panel="addPanel">➕ Add Jobs</button>
+          <button class="admin-tab" data-panel="managePanel">📋 Manage Jobs</button>
+        </div>
+      </div>
+
+      <!-- DASHBOARD OVERVIEW PANEL -->
+      <div class="admin-panel active" id="dashPanel">
+        <!-- Stats Cards -->
+        <div class="dash-stats-grid">
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon" style="background: #EBF5FB; color: var(--primary);">💼</div>
+            <div>
+              <div class="dash-stat-num" id="dashTotalJobs">0</div>
+              <div class="dash-stat-label">Total Jobs</div>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon" style="background: #E8F5E9; color: var(--secondary);">🏷️</div>
+            <div>
+              <div class="dash-stat-num" id="dashDomains">0</div>
+              <div class="dash-stat-label">Domains Active</div>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon" style="background: #FFF3E0; color: #E65100;">📍</div>
+            <div>
+              <div class="dash-stat-num" id="dashLocations">0</div>
+              <div class="dash-stat-label">Locations</div>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon" style="background: #F3E5F5; color: #7B1FA2;">🌐</div>
+            <div>
+              <div class="dash-stat-num" id="dashRemote">0</div>
+              <div class="dash-stat-label">Remote Roles</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="dash-charts-row">
+          <!-- Domain Distribution -->
+          <div class="dash-chart-card">
+            <h3>Jobs by Domain</h3>
+            <div class="dash-bar-chart" id="domainChart">
+              <!-- Populated by admin.js -->
+            </div>
+          </div>
+          <!-- Work Mode Distribution -->
+          <div class="dash-chart-card">
+            <h3>Work Mode Split</h3>
+            <div class="dash-donut-wrap" id="workModeChart">
+              <!-- Populated by admin.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Jobs -->
+        <div class="dash-chart-card" style="margin-top: 24px;">
+          <div class="manage-toolbar" style="border: none; padding: 0 0 16px 0;">
+            <h3>Recent Listings</h3>
+            <a href="#" class="card-link" onclick="document.querySelector('[data-panel=managePanel]').click(); return false;">View All <span>→</span></a>
+          </div>
+          <div class="dash-recent-list" id="recentJobsList">
+            <!-- Populated by admin.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ADD JOBS PANEL -->
+      <div class="admin-panel" id="addPanel">
+        <!-- Quick Add Form -->
+        <div class="paste-area" style="margin-bottom: 24px;">
+          <h3>➕ Quick Add a Job</h3>
+          <p style="color: var(--text-light); margin-bottom: 16px; font-size: 0.9rem;">
+            Manually add a single job listing by filling in the details below.
+          </p>
+          <div class="quick-add-form" id="quickAddForm">
+            <div class="form-group">
+              <label>Job Title *</label>
+              <input type="text" id="qaTitle" placeholder="e.g. Senior Developer (React, Node.js)" />
+            </div>
+            <div class="form-group">
+              <label>Domain *</label>
+              <select id="qaDomain">
+                <option value="">— Select Domain —</option>
+                <option value="Software & Technology">Software & Technology</option>
+                <option value="Design & Creative">Design & Creative</option>
+                <option value="Sales & Business Development">Sales & Business Development</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Project Management">Project Management</option>
+                <option value="Customer Support & Success">Customer Support & Success</option>
+                <option value="Product Management">Product Management</option>
+                <option value="Accounts & Finance">Accounts & Finance</option>
+                <option value="Human Resource Management">Human Resource Management</option>
+                <option value="Business & Strategy">Business & Strategy</option>
+                <option value="Education & Training">Education & Training</option>
+                <option value="Hardware Technology">Hardware Technology</option>
+                <option value="DevOps & Infrastructure">DevOps & Infrastructure</option>
+                <option value="Data & Analytics">Data & Analytics</option>
+                <option value="Cybersecurity">Cybersecurity</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Company Type</label>
+              <input type="text" id="qaCompanyType" placeholder="e.g. B2B • Product • Series A" />
+            </div>
+            <div class="form-group">
+              <label>Location *</label>
+              <input type="text" id="qaLocation" placeholder="e.g. Pune, Maharashtra" />
+            </div>
+            <div class="form-group">
+              <label>Experience *</label>
+              <input type="text" id="qaExperience" placeholder="e.g. 3-5 yrs" />
+            </div>
+            <div class="form-group">
+              <label>Work Mode *</label>
+              <select id="qaWorkMode">
+                <option value="Work from office">Work from office</option>
+                <option value="Remote">Remote</option>
+                <option value="Hybrid">Hybrid</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label>Apply URL</label>
+              <input type="url" id="qaApplyUrl" placeholder="https://app.talentxo.com/s/..." />
+            </div>
+            <div class="full-width">
+              <button class="button primary small" onclick="quickAddJob()">➕ Add Job <span>→</span></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bulk Paste -->
+        <div class="paste-area">
+          <h3>📝 Bulk Paste Job Listings</h3>
+          <p style="color: var(--text-light); margin-bottom: 16px; font-size: 0.9rem;">
+            Paste job listings from TalentXO in the standard format below. The parser will automatically extract job details and create cards.
+          </p>
+          <textarea id="pasteInput" class="paste-textarea" placeholder="Paste your TalentXO job listings here...
+
+Example format:
+
+10 Software & Technology roles open Pan India and remote.
+
+1. Cloud Automation Architect, at a B2B • Service • Public company
+📍 Hyderabad | 8-12 yrs | Work from office
+Apply: https://app.talentxo.com/s/012Oc
+
+2. Senior Developer (Ruby on Rails, Python), at a B2B • Service • Seed company
+📍 Pune, Maharashtra | 2-4 yrs | Hybrid, 2 days
+Apply: https://app.talentxo.com/s/012Od"></textarea>
+
+          <div class="paste-actions">
+            <select id="domainSelect" class="domain-select">
+              <option value="">— Select Domain Category —</option>
+              <option value="Software & Technology">Software & Technology</option>
+              <option value="Design & Creative">Design & Creative</option>
+              <option value="Sales & Business Development">Sales & Business Development</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Project Management">Project Management</option>
+              <option value="Customer Support & Success">Customer Support & Success</option>
+              <option value="Product Management">Product Management</option>
+              <option value="Accounts & Finance">Accounts & Finance</option>
+              <option value="Human Resource Management">Human Resource Management</option>
+              <option value="Business & Strategy">Business & Strategy</option>
+              <option value="Education & Training">Education & Training</option>
+              <option value="Hardware Technology">Hardware Technology</option>
+              <option value="DevOps & Infrastructure">DevOps & Infrastructure</option>
+              <option value="Data & Analytics">Data & Analytics</option>
+              <option value="Cybersecurity">Cybersecurity</option>
+            </select>
+            <button class="button primary small" onclick="parseJobs()">🔍 Parse Jobs <span>→</span></button>
+          </div>
+        </div>
+
+        <!-- PREVIEW AREA -->
+        <div class="preview-area" id="previewArea" style="display: none;">
+          <div class="preview-header">
+            <h3>👀 Preview</h3>
+            <div>
+              <span class="preview-count" id="previewCount">0 jobs parsed</span>
+              <button class="button primary small" onclick="publishJobs()" style="margin-left: 12px;">✅ Publish to Job Board <span>→</span></button>
+            </div>
+          </div>
+          <div class="jobs-grid" id="previewGrid">
+            <!-- Populated by admin.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- MANAGE JOBS PANEL -->
+      <div class="admin-panel" id="managePanel">
+        <div class="manage-table-wrap">
+          <div class="manage-toolbar">
+            <div>
+              <h3>All Published Jobs</h3>
+              <span style="font-size: 0.85rem; color: var(--text-light);" id="totalJobsCount">0 total jobs</span>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="export-btn" onclick="exportJobs()">📥 Export JSON</button>
+              <button class="import-btn" onclick="importJobs()">📤 Import JSON</button>
+              <button class="delete-btn" onclick="deleteAllJobs()" style="padding: 8px 16px;">🗑️ Delete All</button>
+            </div>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="manage-table">
+              <thead>
+                <tr>
+                  <th>Job Title</th>
+                  <th>Domain</th>
+                  <th>Location</th>
+                  <th>Experience</th>
+                  <th>Work Mode</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="jobsTableBody">
+                <!-- Populated by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="index.html">
+          <img class="brand-logo footer-logo" src="assets/logo-white.png" alt="Sprout Workforce Solutions" />
+        </a>
+        <p>People-focused HR solutions for ambitious organisations across India.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="jobs.html">Job Board</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="services.html">Talent Acquisition</a>
+        <a href="services.html">HR Consulting</a>
+        <a href="services.html">Payroll & Compliance</a>
+        <a href="services.html">Training & Development</a>
+      </div>
+      <div>
+        <h4>Get in Touch</h4>
+        <a href="mailto:hr@sproutwfs.com">hr@sproutwfs.com</a>
+        <p>Pan India | Remote</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Sprout Workforce Solutions. All rights reserved.</span>
+      <span><a href="#">Privacy</a><a href="#">Terms</a></span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
