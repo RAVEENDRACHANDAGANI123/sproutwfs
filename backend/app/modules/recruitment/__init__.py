@@ -1,0 +1,1 @@
+"""Recruitment & ATS Domain Module."""
